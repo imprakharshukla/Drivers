@@ -1,0 +1,115 @@
+; SynapticsTouch.INF
+; Copyright (c) 2000,2011 Microsoft Corporation
+; Copyright (c) 2018,2019 Bingxing Wang
+
+[Version]
+Signature   = "$WINDOWS NT$"
+Class       = HIDClass
+ClassGUID   = {745a17a0-74d3-11d0-b6fe-00a0c90f57da}
+Provider    = %MSFT%
+ExtensionId = {21E3E289-3E58-469D-B9DF-65339CD11F5C}
+DriverVer   = 04/24/2015,10.28.11.0555
+CatalogFile = chakra_HiMaxTouch.cat
+
+[DestinationDirs]
+DefaultDestDir = 12
+
+[SourceDisksNames]
+1 = %Installation_Disk%,,,""
+
+[SourceDisksFiles]
+
+;*****************************************
+; TchDriver client driver Install Section
+;*****************************************
+
+[TchDriver_Device.NT.CopyFiles]
+
+[Manufacturer]
+%MSFT% = DeviceExtensions,NTarm
+
+[DeviceExtensions.NTarm]
+%TchDriver_Device_Desc% = DeviceExtension_Install, ACPI\NOKIA_TOUCH
+
+[DeviceExtension_Install]
+AddReg    = CapButtons.NT.HW.AddReg
+AddReg    = Resolutions.NT.HW.AddReg
+AddReg    = DisplaySize.NT.HW.AddReg
+AddReg    = ButtonBacklights.NT.HW.AddReg
+AddReg    = LegacyTouchScaling.NT.HW.AddReg
+CopyFiles = TchDriver_Device.NT.CopyFiles
+
+[LegacyTouchScaling.NT.HW.AddReg]
+HKR, , "LegacyTouchScaling", 0x00010001,   0x0
+
+[CapButtons.NT.HW.AddReg]
+HKLM, "SYSTEM\TOUCH\BUTTONS"  , "Count", %REG_DWORD%        ,   0x3
+HKLM, "SYSTEM\TOUCH\BUTTONS\0", "Name" , %REG_SZ%     "Back",
+HKLM, "SYSTEM\TOUCH\BUTTONS\0", "VKey" , %REG_DWORD%        ,   0x1B
+HKLM, "SYSTEM\TOUCH\BUTTONS\1", "Name" , %REG_SZ%           ,      "Start"
+HKLM, "SYSTEM\TOUCH\BUTTONS\1", "VKey" , %REG_DWORD%        ,   0x71
+HKLM, "SYSTEM\TOUCH\BUTTONS\2", "Name" , %REG_SZ%           ,      "Search"
+HKLM, "SYSTEM\TOUCH\BUTTONS\2", "VKey" , %REG_DWORD%        ,   0x72
+
+
+
+[Resolutions.NT.HW.AddReg]
+HKLM,SYSTEM\TOUCH\SCREENPROPERTIES,TouchInvertYAxis,0x00010001,0x00000000
+HKLM,SYSTEM\TOUCH\SCREENPROPERTIES,TouchPhysicalButtonHeight,0x00010001,0x00000049
+HKLM,SYSTEM\TOUCH\SCREENPROPERTIES,TouchLetterBoxHeightTop,0x00010001,0x00000000
+HKLM,SYSTEM\TOUCH\SCREENPROPERTIES,DisplayLetterBoxHeightTop,0x00010001,0x00000000
+HKLM,SYSTEM\TOUCH\SCREENPROPERTIES,TouchSwapAxes,0x00010001,0x00000000
+HKLM,SYSTEM\TOUCH\SCREENPROPERTIES,TouchPhysicalHeight,0x00010001,0x00000549
+HKLM,SYSTEM\TOUCH\SCREENPROPERTIES,TouchPillarBoxWidthLeft,0x00010001,0x00000000
+HKLM,SYSTEM\TOUCH\SCREENPROPERTIES,TouchLetterBoxHeightBottom,0x00010001,0x00000000
+HKLM,SYSTEM\TOUCH\SCREENPROPERTIES,DisplayLetterBoxHeightBottom,0x00010001,0x00000000
+HKLM,SYSTEM\TOUCH\SCREENPROPERTIES,DisplayPhysicalHeight,0x00010001,0x00000500
+HKLM,SYSTEM\TOUCH\SCREENPROPERTIES,TouchInvertXAxis,0x00010001,0x00000000
+HKLM,SYSTEM\TOUCH\SCREENPROPERTIES,TouchPhysicalWidth,0x00010001,0x000002CF
+HKLM,SYSTEM\TOUCH\SCREENPROPERTIES,DisplayPillarBoxWidthLeft,0x00010001,0x00000000
+HKLM,SYSTEM\TOUCH\SCREENPROPERTIES,DisplayPillarBoxWidthRight,0x00010001,0x00000000
+HKLM,SYSTEM\TOUCH\SCREENPROPERTIES,DisplayPhysicalWidth,0x00010001,0x000002D0
+HKLM,SYSTEM\TOUCH\SCREENPROPERTIES,TouchPillarBoxWidthRight,0x00010001,0x00000000
+
+[DisplaySize.NT.HW.AddReg]
+HKLM,SYSTEM\TOUCH\DISPLAYPROPERTIES,DisplayWidth10um,0x00010001,0x0000189C
+HKLM,SYSTEM\TOUCH\DISPLAYPROPERTIES,DisplayHeight10um,0x00010001,0x00002B5C
+
+[ButtonBacklights.NT.HW.AddReg]
+HKLM, "SYSTEM\TOUCH\BUTTONS\BACKLIGHT", "LedCount"          , %REG_DWORD%,  0x3
+HKLM, "SYSTEM\TOUCH\BUTTONS\BACKLIGHT", "LedIndexList"      , 0x10000    ,  "0","1","2"
+HKLM, "SYSTEM\TOUCH\BUTTONS\BACKLIGHT", "InactivityTimeout" , %REG_DWORD%,  0x0
+HKLM, "SYSTEM\TOUCH\BUTTONS\BACKLIGHT", "MilliLuxRanges"    , 0x10000    ,  "100000","4294967295"
+HKLM, "SYSTEM\TOUCH\BUTTONS\BACKLIGHT", "IntensityMappings0", 0x10000    ,  "12","0"
+HKLM, "SYSTEM\TOUCH\BUTTONS\BACKLIGHT", "IntensityMappings1", 0x10000    ,  "12","0"
+HKLM, "SYSTEM\TOUCH\BUTTONS\BACKLIGHT", "IntensityMappings2", 0x10000    ,  "12","0"
+
+; ------------- Strings section
+[Strings]
+MSFT                   = "LumiaWoA authors"
+Manufacturer_Name      = "Synaptics"
+Installation_Disk      = "Synaptics Touch Driver Installation Disk"
+TchDriver_Device_Desc  = "Synaptics RMI4 F12 Martini Digitizer Device"
+TchDriver_Service      = "SynapticsTouch"
+TchDriver_Service_Desc = "Synaptics RMI4 F12 Martini Digitizer Driver Service"
+HIDKMDF_Service        = "mshidkmdf"
+
+; ------------- non-localizable strings
+Configuration          = "SYSTEM\TOUCH\SETTINGS"
+FFConfiguration        = "SYSTEM\TOUCH\SETTINGS\FF"
+ScreenProps            = "SYSTEM\TOUCH\SCREENPROPERTIES"
+DisplaySize            = "SYSTEM\TOUCH\DISPLAYPROPERTIES"
+SPSVCINST_ASSOCSERVICE = 0x00000002
+SERVICE_KERNEL_DRIVER  = 1
+SERVICE_BOOT_START     = 0
+SERVICE_SYSTEM_START   = 1
+SERVICE_DEMAND_START   = 3
+SERVICE_ERROR_NORMAL   = 1
+SERVICE_ERROR_IGNORE   = 0
+SERVICE_ERROR_CRITICAL = 3
+REG_EXPAND_SZ          = 0x00020000
+REG_MULTI_SZ           = 0x00010000
+REG_DWORD              = 0x00010001
+REG_SZ                 = 0x00000000
+
+

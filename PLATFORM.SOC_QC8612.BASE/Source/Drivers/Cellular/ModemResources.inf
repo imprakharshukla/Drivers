@@ -1,0 +1,41 @@
+;
+; ModemResources.inf
+;
+[Version]
+Signature   = "$WINDOWS NT$"
+Class       = SYSTEM
+ClassGuid   = {4d36e97d-e325-11ce-bfc1-08002be10318}
+Provider    = %IHV%
+DriverVer   = 04/15/2015,1.0.2074.0000
+CatalogFile = ModemResources.cat
+
+[DestinationDirs]
+ModemResourcesWP.Files = 10,OEM\Drivers\WP
+ModemResourcesWA.Files = 10,OEM\Drivers\WA
+
+[SourceDisksNames]
+0 = "Disk"
+
+[SourceDisksFiles]
+qcmbb.wp8612.wa.cat  = 0,,
+qcmbb.wp8612.wp.cat  = 0,,
+qcmbb.wp8612.inf     = 0,,
+qcmbb8612.wa.sys     = 0,,
+qcmbb8612.wp.sys     = 0,,
+
+[DefaultInstall.NTARM]
+CopyFiles = ModemResourcesWP.Files,ModemResourcesWA.Files
+
+[ModemResourcesWP.Files]
+qcmbb.wp8612.cat, qcmbb.wp8612.wp.cat, , 0x00004000,
+qcmbb.wp8612.inf, qcmbb.wp8612.inf   , , 0x00004000,
+qcmbb8612.sys, qcmbb8612.wp.sys      , , 0x00004000,
+
+[ModemResourcesWA.Files]
+qcmbb.wp8612.cat, qcmbb.wp8612.wa.cat, , 0x00004000,
+qcmbb.wp8612.inf, qcmbb.wp8612.inf   , , 0x00004000,
+qcmbb8612.sys, qcmbb8612.wa.sys      , , 0x00004000,
+
+[Strings]
+IHV = "LumiaWoA authors"
+
